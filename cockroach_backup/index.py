@@ -94,15 +94,7 @@ def getkeys():
         if email and not verification_code:
             
             result=create_email_verify_request(email)
-            if result=='SUCCESS':
-                flash("Verification email sent successfully. Enter the verification code below.", "success")
-                return render_template('getkeys.html', email=email)
-            elif result == 'EMAIL_ALREADY_SENT':
-                return render_template('getkeys.html', VError='Email already sent try again in 1 minute')
-            elif result == 'EMAIL_ALREADY_PAIRED':
-                return render_template('getkeys.html', VError='Email already paired with a database')
-            else :
-                return jsonify({"msg":"error!"})
+            return jsonify({"msg":result})
         
         
         elif email and verification_code:
@@ -110,7 +102,7 @@ def getkeys():
             key=code_is_valid(email,verification_code)
             if key:
 
-                return render_template('getkeys.html',key=key,email=email)
+                return render_template('createdatabase.html',key=key,email=email)
                 
             else:
                 flash("Invalid verification code. Please try again.", "error")         
