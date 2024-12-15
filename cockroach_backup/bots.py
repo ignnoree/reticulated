@@ -60,16 +60,12 @@ def create_rety_tables(input,key):
             chat = openai.ChatCompletion.create(model='gpt-4', messages=messages)
             reply = chat.choices[0].message.content
             print(reply)
-            if reply=='False':
-                return ('input not clear enough :( ')  
-            elif reply =='table already exist':
-                return ('table already exists ! query too see the tables') 
             try:
                 db.execute(reply)
-                return ('table created succsessfully !')
+                return (f'table created succsessfully !: {reply}')
             
-            except Exception:
-                return ('input not clear enough :( ')   
+            except Exception as e:
+                return (f'{reply} ')   
         else:
                 return None
             
