@@ -78,6 +78,7 @@ def crdatabase(key,email):
     uploadfolder=r'D:\cockroach\retyculated_databases'
     db=SQL('sqlite:///reticulated.db')
     db_path = os.path.join(uploadfolder,f'{email}.db')
+    print(f'path = {db_path}')
     conn = sqlite3.connect(db_path)
     conn.close()
     db.execute('insert into reti_databases (database_path,database_key,email) VALUES (?,?,?)',db_path,key,email)
